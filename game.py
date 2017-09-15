@@ -6,6 +6,7 @@ import pygame
 
 # -----CUSTOM CLASSES HERE-----
 from Player import Player
+from Bad_guy import Bad_guy
 
 # Have to init the pygame object so we can use it
 pygame.init()
@@ -20,6 +21,7 @@ screen = pygame.display.set_mode(screen_size)
 pygame.display.set_caption("An epic shooter made with python")
 
 the_player = Player('batman.png',100,100,screen)
+bad_guy = Bad_guy(screen)
 
 # the_player_image = pygame.image.load('batman.png')
 # player = {
@@ -64,6 +66,11 @@ while game_on: #will run forever (until break)
 
 	# paint the screen
 	screen.fill(background_color)
+
+	# update the bad guy (based on where the player is)
+	bad_guy.update_me(the_player)
+	# draw the bad guy
+	bad_guy.draw_me()
 
 	# # Must be after fill, or we won't be able to see the hero
 	# screen.blit(the_player.image, [the_player.x,the_player.y])
