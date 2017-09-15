@@ -3,10 +3,12 @@
 # $ pip install pygame
 # it is NOT part of core. This is a 3rd party module.
 import pygame
+from pygame.sprite import Group, groupcollide
 
 # -----CUSTOM CLASSES HERE-----
 from Player import Player
 from Bad_guy import Bad_guy
+from Bullet import Bullet
 
 # Have to init the pygame object so we can use it
 pygame.init()
@@ -22,6 +24,8 @@ pygame.display.set_caption("An epic shooter made with python")
 
 the_player = Player('batman.png',100,100,screen)
 bad_guy = Bad_guy(screen)
+# Make a new Group called bullets. Group is a pygame "list"
+bullets = Group()
 
 # the_player_image = pygame.image.load('batman.png')
 # player = {
@@ -54,6 +58,12 @@ while game_on: #will run forever (until break)
 			elif event.key == 276:
 				# the_player.x -= the_player.speed
 				the_player.should_move("left",True)
+			elif event.key == 32:
+				# 32 = SPACE BAR... FIRE!!!!
+				new_bullet = Bullet(screen, the_player, 1)
+				bullets.add(new_bullet)
+				new_bullet = Bullet(screen, the_player, 3)
+				bullets.add(new_bullet)
 		elif event.type == pygame.KEYUP:
 			if event.key == 273:
 				the_player.should_move("up",False)
@@ -63,6 +73,8 @@ while game_on: #will run forever (until break)
 				the_player.should_move("right",False)
 			elif event.key == 276:
 				the_player.should_move("left",False)
+
+	print bullets
 
 	# paint the screen
 	screen.fill(background_color)
@@ -75,6 +87,12 @@ while game_on: #will run forever (until break)
 	# # Must be after fill, or we won't be able to see the hero
 	# screen.blit(the_player.image, [the_player.x,the_player.y])
 	the_player.draw_me()
+
+	for bullet in bullets:
+		# update teh bullet location
+		bullet.update()
+		# draw the bullet on the screen
+		bullet.draw_bullet()
 
 	# flip the screen, i.e.clear it so we can draw again... and again... and again
 	pygame.display.flip()
