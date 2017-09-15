@@ -79,7 +79,7 @@ while game_on: #will run forever (until break)
 			elif event.key == 276:
 				the_player.should_move("left",False)
 
-	print bullets
+	# print bullets
 
 	# paint the screen
 	screen.fill(background_color)
@@ -102,7 +102,7 @@ while game_on: #will run forever (until break)
 
 	# Check for collions...
 	bullet_hit = groupcollide(bullets,bad_guys,True,True)
-	print bullet_hit
+	# print bullet_hit
 
 	# flip the screen, i.e.clear it so we can draw again... and again... and again
 	pygame.display.flip()

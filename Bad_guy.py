@@ -20,6 +20,8 @@ class Bad_guy(Sprite):
 		dy = dy / dist
 		self.x -= dx * self.speed
 		self.y -= dy * self.speed
+		self.rect.left = self.x
+		self.rect.top = self.y
 
 	def draw_me(self):
 		# self.rect.left = self.x
