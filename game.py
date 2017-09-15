@@ -23,7 +23,12 @@ screen = pygame.display.set_mode(screen_size)
 pygame.display.set_caption("An epic shooter made with python")
 
 the_player = Player('batman.png',100,100,screen)
+# Make a bad_guy
 bad_guy = Bad_guy(screen)
+# make a group for the bad_guys
+bad_guys = Group()
+# add our bad_guy to the bad_guys group
+bad_guys.add(bad_guy)
 # Make a new Group called bullets. Group is a pygame "list"
 bullets = Group()
 
@@ -79,10 +84,11 @@ while game_on: #will run forever (until break)
 	# paint the screen
 	screen.fill(background_color)
 
-	# update the bad guy (based on where the player is)
-	bad_guy.update_me(the_player)
-	# draw the bad guy
-	bad_guy.draw_me()
+	for bad_guy in bad_guys:
+		# update the bad guy (based on where the player is)
+		bad_guy.update_me(the_player)
+		# draw the bad guy
+		bad_guy.draw_me()
 
 	# # Must be after fill, or we won't be able to see the hero
 	# screen.blit(the_player.image, [the_player.x,the_player.y])
@@ -93,6 +99,10 @@ while game_on: #will run forever (until break)
 		bullet.update()
 		# draw the bullet on the screen
 		bullet.draw_bullet()
+
+	# Check for collions...
+	bullet_hit = groupcollide(bullets,bad_guys,True,True)
+	print bullet_hit
 
 	# flip the screen, i.e.clear it so we can draw again... and again... and again
 	pygame.display.flip()

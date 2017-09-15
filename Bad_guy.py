@@ -10,6 +10,7 @@ class Bad_guy(Sprite):
 		self.y = 400
 		self.screen = screen
 		self.speed = 4
+		self.rect = self.image.get_rect()
 
 	def update_me(self, the_player):
 		dx = self.x - the_player.x
